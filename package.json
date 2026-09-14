@@ -1,0 +1,34 @@
+{
+  "name": "typeframe",
+  "version": "0.1.0",
+  "description": "Type. Frame. Ship. — Turn terminal sessions into tiny, sharp, framework-agnostic web animations.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit",
+    "check:size": "bun scripts/check-size.ts",
+    "build:player": "bun scripts/build-player.ts",
+    "build:schema": "bun packages/core/scripts/build-schema.ts",
+    "build:cli": "bun build --compile ./packages/cli/src/cli.ts --outfile ./dist/typeframe",
+    "build": "bun run build:player && bun run build:schema && bun run build:cli"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.0",
+    "@types/bun": "^1.4.2",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.1.0",
+    "ajv": "^8.20.0",
+    "happy-dom": "^18.0.0",
+    "react-devtools-core": "^8.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}
