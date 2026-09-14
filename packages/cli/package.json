@@ -1,0 +1,20 @@
+{
+  "name": "typeframe",
+  "version": "0.1.0",
+  "description": "Turn terminal sessions into web animations — CLI + Ink TUI studio",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "typeframe": "./src/cli.ts"
+  },
+  "exports": {
+    ".": "./src/cli.ts"
+  },
+  "dependencies": {
+    "@typeframe/core": "workspace:*",
+    "@typeframe/player": "workspace:*",
+    "@typeframe/svg": "workspace:*",
+    "ink": "^7.1.0",
+    "react": "^19.1.0"
+  }
+}

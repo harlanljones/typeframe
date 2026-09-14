@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "meta": {
+    "theme": "tokyo-night",
+    "windowStyle": "macos",
+    "dimensions": { "width": 48, "height": 6 },
+    "physics": "human",
+    "seed": 1337,
+    "title": "deploying to production with flyctl"
+  },
+  "events": [
+    { "type": "prompt", "text": "$ " },
+    { "type": "type", "text": "flyctl deploy --strategy rolling", "delay": 55 },
+    { "type": "wait", "duration": 400 },
+    { "type": "output", "text": "==> Building image with Buildpacks" },
+    { "type": "wait", "duration": 500 },
+    { "type": "output", "text": "✓ Image built in 1.2s", "color": "#9ece6a" },
+    { "type": "output", "text": "==> Releasing v7 to production", "color": "#e0af68" },
+    { "type": "wait", "duration": 600 },
+    {
+      "type": "output",
+      "text": "✔ Deployment complete: https://typeframe.fly.dev",
+      "color": "#9ece6a"
+    }
+  ]
+}

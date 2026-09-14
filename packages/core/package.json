@@ -1,0 +1,14 @@
+{
+  "name": "@typeframe/core",
+  "version": "0.1.0",
+  "description": "Timeline schema, ANSI parser, themes, typing physics, and screen engine for TypeFrame",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./lite": "./src/lite.ts"
+  },
+  "dependencies": {
+    "zod": "^4.1.0"
+  }
+}

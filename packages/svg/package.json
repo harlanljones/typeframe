@@ -1,0 +1,13 @@
+{
+  "name": "@typeframe/svg",
+  "version": "0.1.0",
+  "description": "Deterministic animated-SVG exporter for TypeFrame timelines",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@typeframe/core": "workspace:*"
+  }
+}

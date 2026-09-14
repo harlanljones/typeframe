@@ -1,0 +1,13 @@
+{
+  "name": "@typeframe/player",
+  "version": "0.1.0",
+  "description": "<terminal-player> — zero-dependency web component that plays TypeFrame timelines",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@typeframe/core": "workspace:*"
+  }
+}

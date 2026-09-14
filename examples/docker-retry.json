@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "meta": {
+    "theme": "catppuccin-mocha",
+    "windowStyle": "flat",
+    "dimensions": { "width": 44, "height": 6 },
+    "physics": "burst",
+    "title": "docker build that fails then succeeds"
+  },
+  "events": [
+    { "type": "prompt", "text": "$ " },
+    { "type": "type", "text": "docker build -t typeframe ." },
+    { "type": "wait", "duration": 300 },
+    { "type": "output", "text": "Step 3/5: RUN bun test" },
+    { "type": "output", "text": "error: 1 test failed", "stream": "stderr" },
+    { "type": "wait", "duration": 500 },
+    { "type": "clear" },
+    { "type": "prompt", "text": "$ " },
+    { "type": "type", "text": "docker build -t typeframe ." },
+    { "type": "wait", "duration": 300 },
+    { "type": "output", "text": "✔ Successfully built typeframe", "color": "#a6e3a1" }
+  ]
+}

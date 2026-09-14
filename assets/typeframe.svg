@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="40" viewBox="0 0 220 40" role="img" aria-label="typeframe logo">
+  <rect x="1" y="1" width="218" height="38" rx="9" fill="#1a1b26"/>
+  <text x="16" y="27" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="16">
+    <tspan fill="#7aa2f7">▸</tspan>
+    <tspan fill="#a9b1d6" dx="6">typeframe</tspan>
+    <tspan fill="#9ece6a" dx="6">▌</tspan>
+  </text>
+</svg>
