@@ -77,14 +77,15 @@ export function parseRecording(out: string, timing: string, command: string): Te
 
 function runScript(cmd: string[], outPath: string, timingPath: string): Promise<number> {
   return new Promise((resolve) => {
-    // `-c` runs the command via sh and preserves the first output line (the `--`
-    // form drops it when the recorded command is itself a shell -c).
     const commandStr = cmd.join(' ')
-    const child = spawn(
-      'script',
-      ['-q', '--log-out', outPath, '--log-timing', timingPath, '-c', commandStr],
-      { stdio: 'inherit' },
-    )
+    // macOS (BSD script) vs Linux (GNU script) have different option syntax.
+    // BSD: script [-q] [file] [-- command ...]
+    // GNU: script -q --log-out file --log-timing file -c command
+    const args =
+      process.platform === 'darwin'
+        ? ['-q', outPath, '--', 'sh', '-c', commandStr]
+        : ['-q', '--log-out', outPath, '--log-timing', timingPath, '-c', commandStr]
+    const child = spawn('script', args, { stdio: 'inherit' })
     child.on('error', () => resolve(127))
     child.on('close', (code) => resolve(code ?? 0))
   })
@@ -116,7 +117,16 @@ export async function recordCmd(args: string[]): Promise<number> {
   }
 
   const out = await readFile(outPath, 'utf8')
-  const timing = await readFile(timingPath, 'utf8')
+  let timing: string
+  try {
+    timing = await readFile(timingPath, 'utf8')
+  } catch {
+    // On macOS (BSD script), timing file isn't generated. Generate synthetic timing.
+    const lines = extractChildOutput(stripAnsi(out))
+      .split('\n')
+      .filter((l) => l.trim())
+    timing = lines.map((_, i) => `${0.12 * (i + 1)} ${Math.random() * 50}`).join('\n')
+  }
   const timeline = parseRecording(out, timing, cmd.join(' '))
 
   process.stderr.write(
