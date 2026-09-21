@@ -91,11 +91,12 @@ function runScript(cmd: string[], outPath: string, timingPath: string): Promise<
   return new Promise((resolve) => {
     const commandStr = cmd.join(' ')
     // macOS (BSD script) vs Linux (GNU script) have different option syntax.
-    // BSD: script [-q] [file] [-- command ...]
+    // BSD: script [-q] [file [command ...]] — no `--` separator (the man page
+    // has none, and passing one makes `--` the command: exit 0, empty capture).
     // GNU: script -q --log-out file --log-timing file -c command
     const args =
       process.platform === 'darwin'
-        ? ['-q', outPath, '--', 'sh', '-c', commandStr]
+        ? ['-q', outPath, 'sh', '-c', commandStr]
         : ['-q', '--log-out', outPath, '--log-timing', timingPath, '-c', commandStr]
     const child = spawn('script', args, { stdio: 'inherit' })
     child.on('error', () => resolve(127))
