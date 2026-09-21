@@ -26,11 +26,17 @@ function extractChildOutput(out: string): string {
   const lines = out.split('\n')
   let start = -1
   for (let i = 0; i < lines.length; i++) {
-    if (lines[i].startsWith('Script started')) { start = i; break }
+    if (lines[i].startsWith('Script started')) {
+      start = i
+      break
+    }
   }
   let end = lines.length
   for (let i = lines.length - 1; i > start; i--) {
-    if (lines[i].startsWith('Script done')) { end = i; break }
+    if (lines[i].startsWith('Script done')) {
+      end = i
+      break
+    }
   }
   return lines.slice(start + 1, end).join('\n')
 }
