@@ -19,13 +19,19 @@ function stripAnsi(s: string): string {
   return s.replace(CSI, '')
 }
 
-/** Drop the `Script started …` header and `Script done …` footer that script adds. */
+/** Drop the `Script started …` header and `Script done …` footer that script adds.
+ * Markers are absent under `script -q` (notably BSD/macOS): fall back to the
+ * whole capture instead of an empty slice. */
 function extractChildOutput(out: string): string {
   const lines = out.split('\n')
-  let start = 0
-  while (start < lines.length && !lines[start].startsWith('Script started')) start++
-  let end = lines.length - 1
-  while (end > start && !lines[end].startsWith('Script done')) end--
+  let start = -1
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith('Script started')) { start = i; break }
+  }
+  let end = lines.length
+  for (let i = lines.length - 1; i > start; i--) {
+    if (lines[i].startsWith('Script done')) { end = i; break }
+  }
   return lines.slice(start + 1, end).join('\n')
 }
 
